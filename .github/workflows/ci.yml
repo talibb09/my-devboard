@@ -8,7 +8,25 @@ on:
 
 
 jobs:
-  code:
+  code-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Replace with your project's Node version
+          cache: 'npm'       # Automatically caches dependencies for faster runs
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+  build-push:
+    needs: [code-lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
