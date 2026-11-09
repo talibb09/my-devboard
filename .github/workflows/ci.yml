@@ -18,5 +18,11 @@ jobs:
         uses: docker/login-action@v4
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}   
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Docker build and push
+        uses: docker/build-push-actions@v7
+        with:
+          push: true
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/my-devboard-fe-master:latest
 
